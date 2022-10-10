@@ -6,7 +6,7 @@ import { usePKCECodeVerifier } from "./pkce-handler"
 import { useNonce } from "./nonce-handler"
 import { OAuthCallbackError } from "../../errors"
 
-import type { CallbackParamsType, OpenIDCallbackChecks } from "openid-client"
+import type { OpenIDCallbackChecks } from "openid-client"
 import type { LoggerInstance, Profile } from "../../.."
 import type { OAuthChecks, OAuthConfig } from "../../../providers"
 import type { InternalOptions } from "../../types"
@@ -20,7 +20,7 @@ export default async function oAuthCallback(params: {
   method: Required<RequestInternal>["method"]
   cookies: RequestInternal["cookies"]
 }) {
-  const { options, query, body, method, cookies } = params
+  const { options, query, body, cookies } = params
   const { logger, provider } = options
 
   const errorMessage = body?.error ?? query?.error
@@ -90,17 +90,10 @@ export default async function oAuthCallback(params: {
       resCookies.push(pkce.cookie)
     }
 
-    const params: CallbackParamsType = {
-      ...client.callbackParams({
-        url: `http://n?${new URLSearchParams(query)}`,
-        // TODO: Ask to allow object to be passed upstream:
-        // https://github.com/panva/node-openid-client/blob/3ae206dfc78c02134aa87a07f693052c637cab84/types/index.d.ts#L439
-        // @ts-expect-error
-        body,
-        method,
-      }),
-      ...provider.token?.params,
-    }
+    const params = {
+      code: query?.code,
+      state: query?.state
+    };
 
     if (provider.token?.request) {
       const response = await provider.token.request({
