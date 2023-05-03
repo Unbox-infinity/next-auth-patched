@@ -25,6 +25,39 @@
    </p>
 </p>
 
+## Building the library
+
+Patch file: next-auth/core/lib/oauth/callback.js
+
+install pnmp
+```
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+install Node version ">=16.16.0"
+```
+nvm install 16.16.0
+nvm use 16.16.0
+```
+
+in next-auth-patched/packages/next-auth:
+
+```
+pnpm install
+pnpm run build
+```
+
+testing the library locally:
+in next-auth-patched/packages/next-auth
+```
+npm link
+```
+
+in root project:
+```
+npm link next-auth
+```
+
 ## Overview
 
 NextAuth.js is a complete open source authentication solution for [Next.js](http://nextjs.org/) applications.
