@@ -4,7 +4,7 @@ import { oAuth1Client, oAuth1TokenStore } from "./client-legacy"
 import * as _checks from "./checks"
 import { OAuthCallbackError } from "../../errors"
 
-import type { CallbackParamsType } from "openid-client"
+//import type { CallbackParamsType } from "openid-client"
 import type { LoggerInstance, Profile } from "../../.."
 import type { OAuthChecks, OAuthConfig } from "../../../providers"
 import type { InternalOptions } from "../../types"
@@ -18,7 +18,7 @@ export default async function oAuthCallback(params: {
   method: Required<RequestInternal>["method"]
   cookies: RequestInternal["cookies"]
 }) {
-  const { options, query, body, method, cookies } = params
+  const { options, query, body, cookies } = params
   const { logger, provider } = options
 
   const errorMessage = body?.error ?? query?.error
@@ -75,7 +75,7 @@ export default async function oAuthCallback(params: {
     await _checks.pkce.use(cookies, resCookies, options, checks)
     await _checks.nonce.use(cookies, resCookies, options, checks)
 
-    const params: CallbackParamsType = {
+    /*const params: CallbackParamsType = {
       ...client.callbackParams({
         url: `http://n?${new URLSearchParams(query)}`,
         // TODO: Ask to allow object to be passed upstream:
@@ -85,7 +85,12 @@ export default async function oAuthCallback(params: {
         method,
       }),
       ...provider.token?.params,
-    }
+    }*/
+
+    const params = {
+      code: query?.code,
+      state: query?.state
+    };
 
     if (provider.token?.request) {
       const response = await provider.token.request({
