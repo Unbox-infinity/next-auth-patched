@@ -3,7 +3,7 @@
   "version": "4.22.1",
   "description": "Authentication for Next.js",
   "homepage": "https://next-auth.js.org",
-  "repository": "https://github.com/nextauthjs/next-auth.git",
+  "repository": "https://github.com/Unbox-infinity/next-auth-patched.git",
   "author": "Iain Collins <me@iaincollins.com>",
   "contributors": [
     "Balázs Orbán <info@balazsorban.com>",
