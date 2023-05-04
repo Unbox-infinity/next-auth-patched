@@ -57,6 +57,25 @@ in root project:
 ```
 npm link next-auth
 ```
+## Publishing the package:
+
+in next-auth library package.json is required:
+"name": "@unbox-infinity/next-auth",
+"repository": "https://github.com/Unbox-infinity/next-auth-patched.git", (for multiple packages under the same repo)
+"publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+
+generate personal access token in github with write and read repo permissions
+
+```
+cd next-auth-patched/packages/next-auth
+npm login  --registry=https://npm.pkg.github.com
+```
+login with github username(lowercase) and the token generated
+```
+npm publish
+```
 
 ## Overview
 

@@ -1,6 +1,6 @@
 {
   "name": "@unbox-infinity/next-auth",
-  "version": "4.22.1",
+  "version": "4.22.1-1",
   "description": "Authentication for Next.js",
   "homepage": "https://next-auth.js.org",
   "repository": "https://github.com/Unbox-infinity/next-auth-patched.git",
